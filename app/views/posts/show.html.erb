@@ -2,6 +2,8 @@
 <p><%= @post.location %></p>
 <h2>感想</h2>
 <p><%= @post.text %></p>
+<h2>画像</h2>
+<%= attachment_image_tag @post, :image, fomat: 'jpeg', size: "300x300" %>
 <%= link_to "ひとつ前に戻る", :back %>
  |
 <%= link_to "一覧ページへ", posts_path %>
