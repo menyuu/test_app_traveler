@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
+    post = current_user.posts.new(post_params)
     post.save
     redirect_to post_path(post)
   end
@@ -15,6 +15,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comments = @post.comments.page(params[:page]).per(7).reverse_order
   end
 
   def edit
