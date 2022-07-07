@@ -64,3 +64,5 @@ gem 'bootstrap', '~> 4.5'
 gem 'devise'
 
 gem 'kaminari'
+
+gem 'rails-i18n'
