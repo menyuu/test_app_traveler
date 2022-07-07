@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+  validates :location, presence: true, length: {maximum: 20}
+  validates :text, presence: true, length: {maximum: 200}
+  validates :image, presence: true
 
   attachment :image
 
