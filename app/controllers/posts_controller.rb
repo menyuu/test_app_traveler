@@ -6,14 +6,14 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to post_path(post)
+      redirect_to post_path(@post)
     else
       render :new
     end
   end
 
   def index
-    @posts = Post.page(params[:page]).reverse_order
+    @posts = Post.published.page(params[:page]).reverse_order
     @posts = @posts.where("location LIKE ?", "%#{params[:search]}%") if params[:search].present?
   end
 
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to post_path(post)
+      redirect_to post_path(@post)
     else
       render :edit
     end
@@ -42,8 +42,12 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def confirm
+    @posts = current_user.posts.draft.page(params[:page]).reverse_order
+  end
+
   private
   def post_params
-    params.require(:post).permit(:location, :text, :image)
+    params.require(:post).permit(:location, :text, :image, :status)
   end
 end
